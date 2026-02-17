@@ -1,4 +1,4 @@
-﻿# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1.7
 
 ARG RUBY_VERSION=3.4.4
 ARG NODE_VERSION=24
@@ -55,7 +55,7 @@ RUN pnpm install --frozen-lockfile
 
 # Copy application source.
 COPY . .
-RUN chmod +x ./docker/start-web.sh ./docker/start-worker.sh
+RUN chmod +x ./docker/start.sh ./docker/start-web.sh ./docker/start-worker.sh
 
 # Precompile assets for production image.
 # Dummy values are only for build-time asset compilation.
@@ -72,3 +72,4 @@ ENV RAILS_ENV=production \
 EXPOSE 3000
 
 CMD ["./docker/start-web.sh"]
+
