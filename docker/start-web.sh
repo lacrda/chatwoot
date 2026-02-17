@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Ensure runtime tmp dirs exist in ephemeral container filesystem.
+mkdir -p tmp/pids tmp/cache
+
 # Apply pending migrations/create db if needed before web boots.
 bundle exec rails db:prepare
 
