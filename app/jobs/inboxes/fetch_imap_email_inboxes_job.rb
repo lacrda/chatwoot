@@ -3,6 +3,8 @@ class Inboxes::FetchImapEmailInboxesJob < ApplicationJob
   include BillingHelper
 
   def perform
+    return unless Inbox.where(channel_type: 'Channel::Email').exists?
+
     email_inboxes = Inbox.where(channel_type: 'Channel::Email')
     email_inboxes.find_each(batch_size: 100) do |inbox|
       ::Inboxes::FetchImapEmailsJob.perform_later(inbox.channel) if should_fetch_emails?(inbox)
